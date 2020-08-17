@@ -33,7 +33,7 @@
 ## Workflow to a well architectured cloud application
 ![](images/workflow_well_architectured_cloud_application.png)
 
-#### Architecture styles (https://github.com/naveenraman/AzureApplicationArchitectureGuide/blob/master/2_ArchitectureStyles.md#architecture-styles)
+#### [Architecture styles](https://github.com/naveenraman/AzureApplicationArchitectureGuide/blob/master/2_ArchitectureStyles.md#architecture-styles)
 What kind of architecture we are building? Like microservice architecture, N-tier application or a big data solution
 
 #### Technology choices
