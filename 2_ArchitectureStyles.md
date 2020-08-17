@@ -67,3 +67,12 @@
 
 #### Recommendation for N-tier architecture on virtual machines
 ![](/images/n_tier_vms.PNG)
+
+- Each tier consists of two or more VMs, placed in an availability set or virtual machine scale set.
+- Multiple VMs provide resiliency in case one VM fails.
+- Load balancers are used to distribute requests across the VMs in a tier.
+- A tier can be scaled horizontally by adding more VMs to the pool.
+- Each tier is also placed inside its own subnet, meaning their internal IP addresses fall within the same address range and making it easy to apply network security group (NSG) rules and route tables to individual tiers.
+- The web and business tiers are stateless.Any VM can handle any request for that tier.
+- The data tier should consist of a replicated database. For Windows, we recommend SQL Server, using Always On availability groups for high availability. For Linux, choose a database that supports replication, such as Apache Cassandra.
+- Network security groups restrict access to each tier.(For example, the database tier only allows access from the business tier.)
