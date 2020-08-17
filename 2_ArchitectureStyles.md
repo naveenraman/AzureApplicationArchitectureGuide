@@ -66,4 +66,4 @@
 - If you need higher availability than the Azure SLA for VMs provides, replicate the application across two regions and use Azure Traffic Manager for failover.
 
 #### Recommendation for N-tier architecture on virtual machines
-![](/images/n_tier_vms.png)
+![](/images/n_tier_vms.PNG)
