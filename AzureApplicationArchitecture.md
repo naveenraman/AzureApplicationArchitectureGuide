@@ -31,6 +31,6 @@
 - Immutable infrastructure
 
 ## Workflow to a well architectured cloud application
-![Workflow for a well architectured cloud application](../images/workflow_well_architectured_cloud_application.png)
+![](images/workflow_well_architectured_cloud_application.png)
 
 
