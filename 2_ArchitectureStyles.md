@@ -13,7 +13,7 @@
 ## N-tier
 - Dependencies are managed by dividing the application into layers such as presentation, business logic, and data access.
 
-  ![](/images/n_tier.png
+  ![](/images/n_tier.png)
 
 - A layer can only call into layers that sit below it.
 - Horizontal layering a liability, it can be hard to introduce changes in one part of the application without touching the rest of the application. Frequent updates are challenging, limiting how quickly new features can be added.
