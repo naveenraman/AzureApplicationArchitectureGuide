@@ -10,7 +10,15 @@
     - best practices
     - a recommended deployment using relevant Azure services
     
-## N-tier architecture style
+## Different type of styles
+1. N-tier architecture style
+2. Web-Queue-Worker architecture style
+3. Microservices architecture style
+4. Event-driven architecture style
+5. Big data architecture style
+6. Big compute architecture style
+    
+### N-tier architecture style
 - Dependencies are managed by dividing the application into logical layers and physical tiers such as presentation, business logic, and data access.
 
   ![](/images/n_tier.png)
@@ -77,7 +85,7 @@
 - The data tier should consist of a replicated database. For Windows, we recommend SQL Server, using Always On availability groups for high availability. For Linux, choose a database that supports replication, such as Apache Cassandra.
 - Network security groups restrict access to each tier.(For example, the database tier only allows access from the business tier.)
 
-## Web-Queue-Worker architecture style
+### Web-Queue-Worker architecture style
 - The core components of this architecture are a web front end that serves client requests, and a worker that performs resource-intensive tasks, long-running workflows, or batch jobs. The web front end communicates with the worker through a message queue.
 
 ![](/images/web_queue_worker.png)
@@ -138,7 +146,7 @@
 - For storage, choose the storage technologies that best fit the needs of the application.
 - You might use multiple storage technologies (polyglot persistence).
 
-## Microservices architecture style
+### Microservices architecture style
 - A microservices architecture consists of a collection of small, autonomous services. Each service is self-contained and should implement a single business capability.
 
 ![](/images/microservices.png)
@@ -239,7 +247,7 @@
 - Services should have loose coupling and high functional cohesion. Functions that are likely to change together should be packaged and deployed together. If they reside in separate services, those services end up being tightly coupled, because a change in one service will require updating the other service. Overly chatty communication between two services may be a symptom of tight coupling and low cohesion.
 - Isolate failures. Use resiliency strategies to prevent failures within a service from cascading.
 
-## Event-driven architecture style
+### Event-driven architecture style
 - An event-driven architecture consists of event producers that generate a stream of events, and event consumers that listen for the events.
 
 ![](/images/event_driven.png)
@@ -285,7 +293,7 @@
 - Guaranteed delivery. In some systems, especially in IoT scenarios, it's crucial to guarantee that events are delivered.
 - Processing events in order or exactly once. Each consumer type typically runs in multiple instances, for resiliency and scalability. This can create a challenge if the events must be processed in order (within a consumer type), or if the processing logic is not idempotent.
 
-## Big data architecture style
+### Big data architecture style
 - A big data architecture is designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems.
 
 ![](/images/big_data.png)
@@ -434,7 +442,7 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
     
     - Command and control messages: Allow command and control messages to be sent to devices.
 
-## Big compute architecture style
+### Big compute architecture style
 
 
 #### When to use this architecture
