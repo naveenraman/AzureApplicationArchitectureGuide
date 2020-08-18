@@ -346,6 +346,7 @@ These options are not mutually exclusive, and many solutions combine open source
 - Use Azure Machine Learning or Microsoft Cognitive Services
 
 #### Benefits
+
     - *Technology choices*
         - You can mix and match Azure managed services and Apache technologies in HDInsight clusters, to capitalize on existing skills or technology investments.
     - *Performance through parallelism*
@@ -356,61 +357,61 @@ These options are not mutually exclusive, and many solutions combine open source
         - The components of the big data architecture are also used for IoT processing and enterprise BI solutions, enabling you to create an integrated solution across data workloads.
 
 #### Challenges
-    - *Complexity*
-        - Big data solutions can be extremely complex, with numerous components to handle data ingestion from multiple data sources.
-        - Challenging to build, test, and troubleshoot big data processes.
-        - There may be a large number of configuration settings across multiple systems that must be used in order to optimize performance
-    - *Skillset*
-        - Many big data technologies are highly specialized, and use frameworks and languages that are not typical of more general application architectures.
-          e.g. U-SQL language in Azure Data Lake Analytics is based on a combination of Transact-SQL and C#;SQL-based APIs are available for Hive, HBase, and Spark 
-    - *Technology maturity*
-        - While core Hadoop technologies such as Hive and Pig have stabilized, emerging technologies such as Spark introduce extensive changes and enhancements with each new release.
-        - Managed services such as Azure Data Lake Analytics and Azure Data Factory are relatively young
-    - *Security*
-        - Big data solutions usually rely on storing all static data in a centralized data lake.
-        - Securing access to this data can be challenging, especially when the data must be ingested and consumed by multiple applications and platforms.
+- *Complexity*
+    - Big data solutions can be extremely complex, with numerous components to handle data ingestion from multiple data sources.
+    - Challenging to build, test, and troubleshoot big data processes.
+    - There may be a large number of configuration settings across multiple systems that must be used in order to optimize performance
+- *Skillset*ata technologies are highly specialized, and use frameworks and languages that are not typical of more general application architectures.
+      e.g. U-SQL language in Azure Data Lake Analytics is based on a combination of Transact-SQL and C#;SQL-based APIs are available for Hive, HBase, and Spark 
+- *Technology maturity*
+    - While core Hadoop technologies such as Hive and Pig have stabilized, emerging technologies such as Spark introduce extensive changes and enhancements with each new release.
+    - Many big d
+    - Managed services such as Azure Data Lake Analytics and Azure Data Factory are relatively young
+- *Security*
+    - Big data solutions usually rely on storing all static data in a centralized data lake.
+    - Securing access to this data can be challenging, especially when the data must be ingested and consumed by multiple applications and platforms.
 
 #### Best practices
-    - *Leverage parallelism*
-        - Most big data processing technologies distribute the workload across multiple processing units. 
-        - This requires that static data files are created and stored in a splittable format. 
-        - Distributed file systems such as HDFS can optimize read and write performance, and the actual processing is performed by multiple cluster nodes in parallel, which reduces overall job times.
-    
-    - *Partition data*
-        - Batch processing usually happens on a recurring schedule — for example, weekly or monthly. 
-        - Partition data files, and data structures such as tables, based on temporal periods that match the processing schedule. 
-        - That simplifies data ingestion and job scheduling, and makes it easier to troubleshoot failures. 
-        - Also, partitioning tables that are used in Hive, U-SQL, or SQL queries can significantly improve query performance.
-    
-    - *Apply schema-on-read semantics*
-        - Using a data lake lets you to combine storage for files in multiple formats, whether structured, semi-structured, or unstructured. 
-        - Use schema-on-read semantics, which project a schema onto the data when the data is processing, not when the data is stored. 
-        - This builds flexibility into the solution, and prevents bottlenecks during data ingestion caused by data validation and type checking.
-        
-    - *Process data in-place*
-        - Traditional BI solutions often use an extract, transform, and load (ETL) process to move data into a data warehouse. 
-        - With larger volumes data, and a greater variety of formats, big data solutions generally use variations of ETL, such as transform, extract, and load (TEL). 
-        - With this approach, the data is processed within the distributed data store, transforming it to the required structure, before moving the transformed data into an analytical data store.
-    - *Balance utilization and time costs*
-        - For batch processing jobs, it's important to consider two factors: 
-            - The per-unit cost of the compute nodes 
-            - The per-minute cost of using those nodes to complete the job. 
-              e.g. a batch job may take eight hours with four cluster nodes. However, it might turn out that the job uses all four nodes only during the first two hours, and after that, only two nodes are required. In that case, running the entire job on two nodes would increase the total job time, but would not double it, so the total cost would be less. 
-         - In some business scenarios, a longer processing time may be preferable to the higher cost of using underutilized cluster resources.
-    
-    - *Separate cluster resources*
-        - When deploying HDInsight clusters, you will normally achieve better performance by provisioning separate cluster resources for each type of workload. 
-          For example, although Spark clusters include Hive, if you need to perform extensive processing with both Hive and Spark, you should consider deploying separate dedicated Spark and Hadoop clusters. 
-        - Similarly, if you are using HBase and Storm for low latency stream processing and Hive for batch processing, consider separate clusters for Storm, HBase, and Hadoop.
-    
-    - *Orchestrate data ingestion*
-        - Existing business applications may write data files for batch processing directly into Azure storage blob containers, where they can be consumed by HDInsight or Azure Data Lake Analytics. 
-        - We will often need to orchestrate the ingestion of data from on-premises or external data sources into the data lake. 
-        - Use an orchestration workflow or pipeline, such as those supported by Azure Data Factory or Oozie, to achieve this in a predictable and centrally manageable fashion.
-    
-    - *Scrub sensitive data early*
-        - The data ingestion workflow should scrub sensitive data early in the process, to avoid storing it in the data lake.
-    
+- *Leverage parallelism*
+    - Most big data processing technologies distribute the workload across multiple processing units. 
+    - This requires that static data files are created and stored in a splittable format. 
+    - Distributed file systems such as HDFS can optimize read and write performance, and the actual processing is performed by multiple cluster nodes in parallel, which reduces overall job times.
+
+- *Partition data*
+    - Batch processing usually happens on a recurring schedule — for example, weekly or monthly. 
+    - Partition data files, and data structures such as tables, based on temporal periods that match the processing schedule. 
+    - That simplifies data ingestion and job scheduling, and makes it easier to troubleshoot failures. 
+    - Also, partitioning tables that are used in Hive, U-SQL, or SQL queries can significantly improve query performance.
+
+- *Apply schema-on-read semantics*
+    - Using a data lake lets you to combine storage for files in multiple formats, whether structured, semi-structured, or unstructured. 
+    - Use schema-on-read semantics, which project a schema onto the data when the data is processing, not when the data is stored. 
+    - This builds flexibility into the solution, and prevents bottlenecks during data ingestion caused by data validation and type checking.
+
+- *Process data in-place*
+    - Traditional BI solutions often use an extract, transform, and load (ETL) process to move data into a data warehouse. 
+    - With larger volumes data, and a greater variety of formats, big data solutions generally use variations of ETL, such as transform, extract, and load (TEL). 
+    - With this approach, the data is processed within the distributed data store, transforming it to the required structure, before moving the transformed data into an analytical data store.
+- *Balance utilization and time costs*
+    - For batch processing jobs, it's important to consider two factors: 
+        - The per-unit cost of the compute nodes 
+        - The per-minute cost of using those nodes to complete the job. 
+          e.g. a batch job may take eight hours with four cluster nodes. However, it might turn out that the job uses all four nodes only during the first two hours, and after that, only two nodes are required. In that case, running the entire job on two nodes would increase the total job time, but would not double it, so the total cost would be less. 
+     - In some business scenarios, a longer processing time may be preferable to the higher cost of using underutilized cluster resources.
+
+- *Separate cluster resources*
+    - When deploying HDInsight clusters, you will normally achieve better performance by provisioning separate cluster resources for each type of workload. 
+      For example, although Spark clusters include Hive, if you need to perform extensive processing with both Hive and Spark, you should consider deploying separate dedicated Spark and Hadoop clusters. 
+    - Similarly, if you are using HBase and Storm for low latency stream processing and Hive for batch processing, consider separate clusters for Storm, HBase, and Hadoop.
+
+- *Orchestrate data ingestion*
+    - Existing business applications may write data files for batch processing directly into Azure storage blob containers, where they can be consumed by HDInsight or Azure Data Lake Analytics. 
+    - We will often need to orchestrate the ingestion of data from on-premises or external data sources into the data lake. 
+    - Use an orchestration workflow or pipeline, such as those supported by Azure Data Factory or Oozie, to achieve this in a predictable and centrally manageable fashion.
+
+- *Scrub sensitive data early*
+    - The data ingestion workflow should scrub sensitive data early in the process, to avoid storing it in the data lake.
+
 #### IoT architecture
 
 ## Big compute architecture style
