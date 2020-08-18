@@ -347,14 +347,14 @@ These options are not mutually exclusive, and many solutions combine open source
 
 #### Benefits
 
-    - *Technology choices*
-        - You can mix and match Azure managed services and Apache technologies in HDInsight clusters, to capitalize on existing skills or technology investments.
-    - *Performance through parallelism*
-        - Big data solutions take advantage of parallelism, enabling high-performance solutions that scale to large volumes of data.
-    - *Elastic scale*
-        - All of the components in the big data architecture support scale-out provisioning, so that you can adjust your solution to small or large workloads, and pay only for the resources that you use.
-    - *Interoperability with existing solutions*
-        - The components of the big data architecture are also used for IoT processing and enterprise BI solutions, enabling you to create an integrated solution across data workloads.
+- *Technology choices*
+    - You can mix and match Azure managed services and Apache technologies in HDInsight clusters, to capitalize on existing skills or technology investments.
+- *Performance through parallelism*
+    - Big data solutions take advantage of parallelism, enabling high-performance solutions that scale to large volumes of data.
+- *Elastic scale*
+    - All of the components in the big data architecture support scale-out provisioning, so that you can adjust your solution to small or large workloads, and pay only for the resources that you use.
+- *Interoperability with existing solutions*
+    - The components of the big data architecture are also used for IoT processing and enterprise BI solutions, enabling you to create an integrated solution across data workloads.
 
 #### Challenges
 - *Complexity*
