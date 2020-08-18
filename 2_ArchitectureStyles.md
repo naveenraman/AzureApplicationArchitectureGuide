@@ -88,6 +88,7 @@
     - a recommended deployment using relevant Azure services
     
 ## Different type of styles
+[Different type of styles]: #different-type-of-styles
 1. N-tier architecture style
 2. Web-Queue-Worker architecture style
 3. Microservices architecture style
@@ -96,6 +97,7 @@
 6. Big compute architecture style
     
 ### N-tier architecture style
+[N-tier architecture style]: #n-tier-architecture-style
 - Dependencies are managed by dividing the application into logical layers and physical tiers such as presentation, business logic, and data access.
 
   ![](/images/n_tier.png)
@@ -110,6 +112,7 @@
   A closed layer architecture limits the dependencies between layers.
 
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - N-tier is best fit for migrating existing applications that already use a layered architecture.
 - N-tier is most often seen in **infrastructure as a service (IaaS)** solutions, or application that use a mix of Iaas and managed services.
 - N-tier architecture can be considered for following applications:
@@ -118,18 +121,21 @@
     - Unified development of on-premises and cloud applications.
 
 #### Benefits
+[Benefits]: #benefits
 - Portability between cloud and on-premises, and between cloud platforms.
 - Less learning curve for most developers.
 - Natural evolution from the traditional application model.
 - Open to heterogeneous environment (Windows/Linux)
 
 #### Challenges
+[Challenges]: #challenges
 - It's easy to end up with a middle tier that just does CRUD operations on the database, adding extra latency without doing any useful work.
 - Monolithic design prevents independent deployment of features.
 - Managing an IaaS application is more work than an application that uses only managed services.
 - It can be difficult to manage network security in a large system.
 
 #### Best practices
+[Best practices]: #best-practices
 - Use autoscaling to handle changes in load.
 - Use asynchronous messaging to decouple tiers.
 - Cache semistatic data.
@@ -139,6 +145,7 @@
 - Restrict access to the data tier, by allowing requests only from the middle tier(s).
 
 #### Additional considerations
+[Additional considerations]: #additional-considerations
 - N-tier architectures are not restricted to three tiers. For more complex applications, it is common to have more tiers. In that case, consider using layer-7 routing to route requests to a particular tier.
 - Tiers are the boundary of scalability, reliability, and security. Consider having separate tiers for services with different requirements in those areas.
 - Use virtual machine scale sets for autoscaling.
@@ -151,6 +158,7 @@
 - If you need higher availability than the Azure SLA for VMs provides, replicate the application across two regions and use Azure Traffic Manager for failover.
 
 #### Recommendation for N-tier architecture on virtual machines
+[Recommendation for N-tier architecture on virtual machines]: #recommendation-for-n-tier-architecture-on-virtual-machines
 ![](/images/n_tier_vms.PNG)
 
 - Each tier consists of two or more VMs, placed in an availability set or virtual machine scale set.
@@ -163,6 +171,7 @@
 - Network security groups restrict access to each tier.(For example, the database tier only allows access from the business tier.)
 
 ### Web-Queue-Worker architecture style
+[Web-Queue-Worker architecture style]: #web-queue-worker-architecture-style
 - The core components of this architecture are a web front end that serves client requests, and a worker that performs resource-intensive tasks, long-running workflows, or batch jobs. The web front end communicates with the worker through a message queue.
 
 ![](/images/web_queue_worker.png)
@@ -179,6 +188,7 @@
 - On the client side, the web API can be consumed by a single-page application that makes AJAX calls, or by a native client application.
 
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - The Web-Queue-Worker architecture is typically implemented using managed compute services, either Azure App Service or Azure Cloud Services.
 - Web-Queue-Worker architecture can be considered for following applications:
     - Applications with a relatively simple domain.
@@ -186,6 +196,7 @@
     - When you want to use managed services, rather than **infrastructure as a service (IaaS)**.
 
 #### Benefits
+[Benefits]: #benefits
 - Relatively simple architecture that is easy to understand.
 - Easy to deploy and manage.
 - Clear separation of concerns.
@@ -193,10 +204,12 @@
 - The front end and the worker can be scaled independently.
 
 #### Challenges
+[Challenges]: #challenges
 - Without careful design, the front end and the worker can become large, monolithic components that are difficult to maintain and update.
 - There may be hidden dependencies, if the front end and worker share data schemas or code modules.
 
 #### Best practices
+[Best practices]: #best-practices
 - Expose a well-designed API to the client.
 - Autoscale to handle changes in load.
 - Cache semi-static data.
@@ -205,6 +218,7 @@
 - Partition data to improve scalability, reduce contention, and optimize performance.
 
 #### Additional considerations
+[Additional considerations]: #additional-considerations
 - Not every transaction has to go through the queue and worker to storage. The web front end can perform simple read/write operations directly. Workers are designed for resource-intensive tasks or long-running workflows. In some cases, you might not need a worker at all.
 - Use the built-in autoscale feature of App Service to scale out the number of VM instances. If the load on the application follows predictable patterns, use schedule-based autoscale. If the load is unpredictable, use metrics-based autoscaling rules.
 - Consider putting the web app and the function app into separate App Service plans. That way, they can be scaled independently.
@@ -212,6 +226,8 @@
 - Use deployment slots to manage deployments. This lets you to deploy an updated version to a staging slot, then swap over to the new version. It also lets you swap back to the previous version, if there was a problem with the update.
 
 #### Recommendation for Web-Queue-Worker on Azure App Service
+[Recommendation for Web-Queue-Worker on Azure App Service]: #recommendation-for-web-queue-worker-on-azure-app-service
+
 ![](/images/web_queue_worker_azure_app_service.png)
 
 - The front end is implemented as an Azure App Service web app.
@@ -224,11 +240,13 @@
 - You might use multiple storage technologies (polyglot persistence).
 
 ### Microservices architecture style
+[Microservices architecture style]: #microservices-architecture-style
 - A microservices architecture consists of a collection of small, autonomous services. Each service is self-contained and should implement a single business capability.
 
 ![](/images/microservices.png)
 
 #### What are microservices?
+[What are microservices?]: #what-are-microservices?
 - Microservices are small, independent, and loosely coupled. A single small team of developers can write and maintain a service.
 - Each service is a separate codebase, which can be managed by a small development team.
 - Services can be deployed independently. A team can update an existing service without rebuilding and redeploying the entire application.
@@ -248,7 +266,7 @@
     - The API Gateway can perform other cross-cutting functions such as authentication, logging, SSL termination, and load balancing.
     
 #### Benefits
-
+[Benefits]: #benefits
 - *Agility*
     - Microservices are deployed independently, it's easier to manage bug fixes and feature releases.
     - We can update a service without redeploying the entire application, and roll back an update if something goes wrong.
@@ -274,7 +292,7 @@
     - It is much easier to perform schema updates, because only a single microservice is affected.
 
 #### Challenges
-
+[Challenges]: #challenges
 - *Complexity*
     - A microservices application has more moving parts than the equivalent monolithic application. 
     - Each service is simpler, but the entire system as a whole is more complex.
@@ -314,6 +332,7 @@
     - Carefully evaluate whether the team has the skills and experience to be successful.
 
 #### Best practices
+[Best practices]: #best-practices
 - Model services around the business domain.
 - Decentralize everything. Individual teams are responsible for designing and building services. Avoid sharing code or data schemas.
 - Data storage should be private to the service that owns the data. Use the best storage for each service and data type.
@@ -325,6 +344,7 @@
 - Isolate failures. Use resiliency strategies to prevent failures within a service from cascading.
 
 ### Event-driven architecture style
+[Event-driven architecture style]: #event-driven-architecture-style
 - An event-driven architecture consists of event producers that generate a stream of events, and event consumers that listen for the events.
 
 ![](/images/event_driven.png)
@@ -354,12 +374,14 @@
         - There may be multiple stream processors for different subsystems of the application. 
         - This approach is a good fit for IoT workloads.
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - Multiple subsystems must process the same events.
 - Real-time processing with minimum time lag.
 - Complex event processing, such as pattern matching or aggregation over time windows.
 - High volume and high velocity of data, such as IoT.
 
 #### Benefits
+[Benefits]: #benefits
 - Producers and consumers are decoupled.
 - No point-to-point integrations. It's easy to add new consumers to the system.
 - Consumers can respond to events immediately as they arrive.
@@ -367,10 +389,12 @@
 - Subsystems have independent views of the event stream.
 
 #### Challenges
+[Challenges]: #challenges
 - Guaranteed delivery. In some systems, especially in IoT scenarios, it's crucial to guarantee that events are delivered.
 - Processing events in order or exactly once. Each consumer type typically runs in multiple instances, for resiliency and scalability. This can create a challenge if the events must be processed in order (within a consumer type), or if the processing logic is not idempotent.
 
 ### Big data architecture style
+[Big data architecture style]: #big-data-architecture-style
 - A big data architecture is designed to handle the ingestion, processing, and analysis of data that is too large or complex for traditional database systems.
 
 ![](/images/big_data.png)
@@ -425,13 +449,14 @@ Azure includes manay services that can be used in a big data architecture. They 
 These options are not mutually exclusive, and many solutions combine open source technologies with Azure services.
 
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - Store and process data in volumes too large for a traditional database
 - Transform unstructured data for analysis and reporting
 - Capture, process, and analyze unbounded streams of data in real time, or with low latency
 - Use Azure Machine Learning or Microsoft Cognitive Services
 
 #### Benefits
-
+[Benefits]: #benefits
 - *Technology choices*
     - You can mix and match Azure managed services and Apache technologies in HDInsight clusters, to capitalize on existing skills or technology investments.
 - *Performance through parallelism*
@@ -442,6 +467,7 @@ These options are not mutually exclusive, and many solutions combine open source
     - The components of the big data architecture are also used for IoT processing and enterprise BI solutions, enabling you to create an integrated solution across data workloads.
 
 #### Challenges
+[Challenges]: #challenges
 - *Complexity*
     - Big data solutions can be extremely complex, with numerous components to handle data ingestion from multiple data sources.
     - Challenging to build, test, and troubleshoot big data processes.
@@ -457,6 +483,7 @@ These options are not mutually exclusive, and many solutions combine open source
     - Securing access to this data can be challenging, especially when the data must be ingested and consumed by multiple applications and platforms.
 
 #### Best practices
+[Best practices]: #best-practices
 - *Leverage parallelism*
     - Most big data processing technologies distribute the workload across multiple processing units. 
     - This requires that static data files are created and stored in a splittable format. 
@@ -498,6 +525,7 @@ These options are not mutually exclusive, and many solutions combine open source
     - The data ingestion workflow should scrub sensitive data early in the process, to avoid storing it in the data lake.
 
 #### IoT architecture
+[IoT architecture]: #iot-architecture
 Internet of Things (IoT) is a specialized subset of big data solutions.
 
 ![Event-streaming components of the architecture](/images/Iot_architecture.png)
@@ -520,15 +548,17 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
     - Command and control messages: Allow command and control messages to be sent to devices.
 
 ### Big compute architecture style
-
+[IoT architecture]: #iot-architecture
 
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - Big compute describes large-scale workloads that require a large number of cores, often numbering in the hundreds or thousands. 
 - Scenarios include image rendering, fluid dynamics, financial risk modeling, oil exploration, drug design, and engineering stress analysis, etc.
 
 ![](/images/big_compute.png)
 
 #### Characteristics
+[Characteristics]: #characteristics
 - The work can be split into discrete tasks, which can be run across many cores simultaneously.
 - Each task is finite. 
 - It takes some input, does some processing, and produces output.
@@ -541,6 +571,7 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 - Depending on your workload, you might use compute-intensive VM sizes (H16r, H16mr, and A9).
 
 #### When to use this architecture
+[When to use this architecture]: #when-to-use-this-architecture
 - Computationally intensive operations such as simulation and number crunching.
 - Simulations that are computationally intensive and must be split across CPUs in multiple computers (10-1000s).
 - Simulations that require too much memory for one computer, and must be split across multiple computers.
@@ -548,18 +579,21 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 - Smaller computations that must be run 100s or 1000s of times, such as Monte Carlo simulations.
 
 #### Benefits
+[Benefits]: #benefits
 - High performance with "embarrassingly parallel" processing.
 - Can harness hundreds or thousands of computer cores to solve large problems faster.
 - Access to specialized high-performance hardware, with dedicated high-speed InfiniBand networks.
 - You can provision VMs as needed to do work, and then tear them down.
 
 #### Challenges
+[Challenges]: #challenges
 - Managing the VM infrastructure.
 - Managing the volume of number crunching
 - Provisioning thousands of cores in a timely manner.
 - For tightly coupled tasks, adding more cores can have diminishing returns. You may need to experiment to find the optimum number of cores.
 
 #### Recommedation for Big compute using Azure Batch
+[Recommedation for Big compute using Azure Batch]: #recommedation-for-big-compute-using-azure-batch
 Azure Batch is a managed service for running large-scale high-performance computing (HPC) applications.
 
 ![](/images/big_compute_azure_batch.png)
@@ -570,6 +604,7 @@ Azure Batch is a managed service for running large-scale high-performance comput
 - Batch also provides job scheduling.
 
 #### Recommedation for Big compute running on Virtual Machines
+[Recommedation for Big compute running on Virtual Machines]: #recommedation-for-big-compute-running-on-virtual-machines
 Microsoft HPC Pack is used to administer a cluster of VMs, and schedule and monitor HPC jobs.
 
 - We must provision and manage the VMs and network infrastructure.
@@ -577,6 +612,7 @@ Microsoft HPC Pack is used to administer a cluster of VMs, and schedule and moni
 - You can move the entire HPC cluster to Azure, or you can keep your HPC cluster on-premises but use Azure for burst capacity.
 
 #### Recommedation for HPC Pack deployed to Azure
+[Recommedation for HPC Pack deployed to Azure]: #recommedation-for-hpc-pack-deployed-to-azure
 The HPC cluster is created entirely within Azure.
 
 ![](/images/hpc_pack_azure.png)
@@ -585,6 +621,7 @@ The HPC cluster is created entirely within Azure.
 - For tightly coupled tasks, use an RDMA network that provides very high bandwidth, low latency communication between VMs.
 
 #### Recommedation for Burst an HPC cluster to Azure
+[Recommedation for Burst an HPC cluster to Azure]: #recommedation-for-burst-an-hpc-cluster-to-azure
 An organization is running HPC Pack on-premises, and uses Azure VMs for burst capacity.
 
 ![](/images/burst_hpc_cluster_azure.png)
