@@ -79,7 +79,7 @@
   A closed layer architecture limits the dependencies between layers.
 
 #### When to use this architecture
-[When to use this architecture]: #when-to-use-this-architecture
+[When to use this architecture]: #when-to-use-this-architecture1
 - N-tier is best fit for migrating existing applications that already use a layered architecture.
 - N-tier is most often seen in **infrastructure as a service (IaaS)** solutions, or application that use a mix of Iaas and managed services.
 - N-tier architecture can be considered for following applications:
@@ -88,21 +88,21 @@
     - Unified development of on-premises and cloud applications.
 
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits1
 - Portability between cloud and on-premises, and between cloud platforms.
 - Less learning curve for most developers.
 - Natural evolution from the traditional application model.
 - Open to heterogeneous environment (Windows/Linux)
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges1
 - It's easy to end up with a middle tier that just does CRUD operations on the database, adding extra latency without doing any useful work.
 - Monolithic design prevents independent deployment of features.
 - Managing an IaaS application is more work than an application that uses only managed services.
 - It can be difficult to manage network security in a large system.
 
 #### Best practices
-[Best practices]: #best-practices
+[Best practices]: #best-practices1
 - Use autoscaling to handle changes in load.
 - Use asynchronous messaging to decouple tiers.
 - Cache semistatic data.
@@ -112,7 +112,7 @@
 - Restrict access to the data tier, by allowing requests only from the middle tier(s).
 
 #### Additional considerations
-[Additional considerations]: #additional-considerations
+[Additional considerations]: #additional-considerations1
 - N-tier architectures are not restricted to three tiers. For more complex applications, it is common to have more tiers. In that case, consider using layer-7 routing to route requests to a particular tier.
 - Tiers are the boundary of scalability, reliability, and security. Consider having separate tiers for services with different requirements in those areas.
 - Use virtual machine scale sets for autoscaling.
@@ -155,7 +155,7 @@
 - On the client side, the web API can be consumed by a single-page application that makes AJAX calls, or by a native client application.
 
 #### When to use this architecture
-[When to use this architecture]: #when-to-use-this-architecture
+[When to use this architecture]: #when-to-use-this-architecture2
 - The Web-Queue-Worker architecture is typically implemented using managed compute services, either Azure App Service or Azure Cloud Services.
 - Web-Queue-Worker architecture can be considered for following applications:
     - Applications with a relatively simple domain.
@@ -163,7 +163,7 @@
     - When you want to use managed services, rather than **infrastructure as a service (IaaS)**.
 
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits2
 - Relatively simple architecture that is easy to understand.
 - Easy to deploy and manage.
 - Clear separation of concerns.
@@ -171,12 +171,12 @@
 - The front end and the worker can be scaled independently.
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges2
 - Without careful design, the front end and the worker can become large, monolithic components that are difficult to maintain and update.
 - There may be hidden dependencies, if the front end and worker share data schemas or code modules.
 
 #### Best practices
-[Best practices]: #best-practices
+[Best practices]: #best-practices2
 - Expose a well-designed API to the client.
 - Autoscale to handle changes in load.
 - Cache semi-static data.
@@ -185,7 +185,7 @@
 - Partition data to improve scalability, reduce contention, and optimize performance.
 
 #### Additional considerations
-[Additional considerations]: #additional-considerations
+[Additional considerations]: #additional-considerations2
 - Not every transaction has to go through the queue and worker to storage. The web front end can perform simple read/write operations directly. Workers are designed for resource-intensive tasks or long-running workflows. In some cases, you might not need a worker at all.
 - Use the built-in autoscale feature of App Service to scale out the number of VM instances. If the load on the application follows predictable patterns, use schedule-based autoscale. If the load is unpredictable, use metrics-based autoscaling rules.
 - Consider putting the web app and the function app into separate App Service plans. That way, they can be scaled independently.
@@ -233,7 +233,7 @@
     - The API Gateway can perform other cross-cutting functions such as authentication, logging, SSL termination, and load balancing.
     
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits3
 - *Agility*
     - Microservices are deployed independently, it's easier to manage bug fixes and feature releases.
     - We can update a service without redeploying the entire application, and roll back an update if something goes wrong.
@@ -259,7 +259,7 @@
     - It is much easier to perform schema updates, because only a single microservice is affected.
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges3
 - *Complexity*
     - A microservices application has more moving parts than the equivalent monolithic application. 
     - Each service is simpler, but the entire system as a whole is more complex.
@@ -299,7 +299,7 @@
     - Carefully evaluate whether the team has the skills and experience to be successful.
 
 #### Best practices
-[Best practices]: #best-practices
+[Best practices]: #best-practices3
 - Model services around the business domain.
 - Decentralize everything. Individual teams are responsible for designing and building services. Avoid sharing code or data schemas.
 - Data storage should be private to the service that owns the data. Use the best storage for each service and data type.
@@ -341,14 +341,14 @@
         - There may be multiple stream processors for different subsystems of the application. 
         - This approach is a good fit for IoT workloads.
 #### When to use this architecture
-[When to use this architecture]: #when-to-use-this-architecture
+[When to use this architecture]: #when-to-use-this-architecture4
 - Multiple subsystems must process the same events.
 - Real-time processing with minimum time lag.
 - Complex event processing, such as pattern matching or aggregation over time windows.
 - High volume and high velocity of data, such as IoT.
 
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits4
 - Producers and consumers are decoupled.
 - No point-to-point integrations. It's easy to add new consumers to the system.
 - Consumers can respond to events immediately as they arrive.
@@ -356,7 +356,7 @@
 - Subsystems have independent views of the event stream.
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges4
 - Guaranteed delivery. In some systems, especially in IoT scenarios, it's crucial to guarantee that events are delivered.
 - Processing events in order or exactly once. Each consumer type typically runs in multiple instances, for resiliency and scalability. This can create a challenge if the events must be processed in order (within a consumer type), or if the processing logic is not idempotent.
 
@@ -416,14 +416,14 @@ Azure includes manay services that can be used in a big data architecture. They 
 These options are not mutually exclusive, and many solutions combine open source technologies with Azure services.
 
 #### When to use this architecture
-[When to use this architecture]: #when-to-use-this-architecture
+[When to use this architecture]: #when-to-use-this-architecture5
 - Store and process data in volumes too large for a traditional database
 - Transform unstructured data for analysis and reporting
 - Capture, process, and analyze unbounded streams of data in real time, or with low latency
 - Use Azure Machine Learning or Microsoft Cognitive Services
 
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits5
 - *Technology choices*
     - You can mix and match Azure managed services and Apache technologies in HDInsight clusters, to capitalize on existing skills or technology investments.
 - *Performance through parallelism*
@@ -434,7 +434,7 @@ These options are not mutually exclusive, and many solutions combine open source
     - The components of the big data architecture are also used for IoT processing and enterprise BI solutions, enabling you to create an integrated solution across data workloads.
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges5
 - *Complexity*
     - Big data solutions can be extremely complex, with numerous components to handle data ingestion from multiple data sources.
     - Challenging to build, test, and troubleshoot big data processes.
@@ -450,7 +450,7 @@ These options are not mutually exclusive, and many solutions combine open source
     - Securing access to this data can be challenging, especially when the data must be ingested and consumed by multiple applications and platforms.
 
 #### Best practices
-[Best practices]: #best-practices
+[Best practices]: #best-practices5
 - *Leverage parallelism*
     - Most big data processing technologies distribute the workload across multiple processing units. 
     - This requires that static data files are created and stored in a splittable format. 
@@ -517,7 +517,7 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 ### Big compute architecture style
 [Big compute architecture style]: #big-compute-architecture-style
 
-#### When to use this architecture
+#### When to use this architecture6
 [When to use this architecture]: #when-to-use-this-architecture
 - Big compute describes large-scale workloads that require a large number of cores, often numbering in the hundreds or thousands. 
 - Scenarios include image rendering, fluid dynamics, financial risk modeling, oil exploration, drug design, and engineering stress analysis, etc.
@@ -538,7 +538,7 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 - Depending on your workload, you might use compute-intensive VM sizes (H16r, H16mr, and A9).
 
 #### When to use this architecture
-[When to use this architecture]: #when-to-use-this-architecture
+[When to use this architecture]: #when-to-use-this-architecture6
 - Computationally intensive operations such as simulation and number crunching.
 - Simulations that are computationally intensive and must be split across CPUs in multiple computers (10-1000s).
 - Simulations that require too much memory for one computer, and must be split across multiple computers.
@@ -546,14 +546,14 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 - Smaller computations that must be run 100s or 1000s of times, such as Monte Carlo simulations.
 
 #### Benefits
-[Benefits]: #benefits
+[Benefits]: #benefits6
 - High performance with "embarrassingly parallel" processing.
 - Can harness hundreds or thousands of computer cores to solve large problems faster.
 - Access to specialized high-performance hardware, with dedicated high-speed InfiniBand networks.
 - You can provision VMs as needed to do work, and then tear them down.
 
 #### Challenges
-[Challenges]: #challenges
+[Challenges]: #challenges6
 - Managing the VM infrastructure.
 - Managing the volume of number crunching
 - Provisioning thousands of cores in a timely manner.
