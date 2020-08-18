@@ -548,7 +548,7 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
     - Command and control messages: Allow command and control messages to be sent to devices.
 
 ### Big compute architecture style
-[IoT architecture]: #iot-architecture
+[Big compute architecture style]: #big-compute-architecture-style
 
 #### When to use this architecture
 [When to use this architecture]: #when-to-use-this-architecture
