@@ -284,3 +284,31 @@
 #### Challenges
 - Guaranteed delivery. In some systems, especially in IoT scenarios, it's crucial to guarantee that events are delivered.
 - Processing events in order or exactly once. Each consumer type typically runs in multiple instances, for resiliency and scalability. This can create a challenge if the events must be processed in order (within a consumer type), or if the processing logic is not idempotent.
+
+## Big data architecture style
+
+#### When to use this architecture
+
+#### Benefits
+
+#### Challenges
+
+#### Best practices
+
+#### IoT architecture
+
+## Big compute architecture style
+
+#### When to use this architecture
+
+#### Benefits
+
+#### Challenges
+
+#### Recommedation for Big compute using Azure Batch
+
+#### Recommedation for Big compute running on Virtual Machines
+
+#### Recommedation for HPC Pack deployed to Azure
+
+#### Recommedation for Burst an HPC cluster to Azure
