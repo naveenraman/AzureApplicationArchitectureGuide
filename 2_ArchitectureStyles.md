@@ -436,16 +436,73 @@ Internet of Things (IoT) is a specialized subset of big data solutions.
 
 ## Big compute architecture style
 
+
 #### When to use this architecture
+- Big compute describes large-scale workloads that require a large number of cores, often numbering in the hundreds or thousands. 
+- Scenarios include image rendering, fluid dynamics, financial risk modeling, oil exploration, drug design, and engineering stress analysis, etc.
+
+![](/images/big_compute.png)
+
+#### Characteristics
+- The work can be split into discrete tasks, which can be run across many cores simultaneously.
+- Each task is finite. 
+- It takes some input, does some processing, and produces output.
+- The entire application runs for a finite amount of time (minutes to days).
+- A common pattern is to provision a large number of cores in a burst, and then spin down to zero once the application completes.
+- The application does not need to stay up 24/7.
+- The system must handle node failures or application crashes.
+- For some applications, tasks are independent and can run in parallel.
+- Also there are tasks are tightly coupled, meaning they must interact or exchange intermediate results.In that case, consider using high-speed networking technologies such as InfiniBand and remote direct memory access (RDMA).
+- Depending on your workload, you might use compute-intensive VM sizes (H16r, H16mr, and A9).
+
+#### When to use this architecture
+- Computationally intensive operations such as simulation and number crunching.
+- Simulations that are computationally intensive and must be split across CPUs in multiple computers (10-1000s).
+- Simulations that require too much memory for one computer, and must be split across multiple computers.
+- Long-running computations that would take too long to complete on a single computer.
+- Smaller computations that must be run 100s or 1000s of times, such as Monte Carlo simulations.
 
 #### Benefits
+- High performance with "embarrassingly parallel" processing.
+- Can harness hundreds or thousands of computer cores to solve large problems faster.
+- Access to specialized high-performance hardware, with dedicated high-speed InfiniBand networks.
+- You can provision VMs as needed to do work, and then tear them down.
 
 #### Challenges
+- Managing the VM infrastructure.
+- Managing the volume of number crunching
+- Provisioning thousands of cores in a timely manner.
+- For tightly coupled tasks, adding more cores can have diminishing returns. You may need to experiment to find the optimum number of cores.
 
 #### Recommedation for Big compute using Azure Batch
+Azure Batch is a managed service for running large-scale high-performance computing (HPC) applications.
+
+![](/images/big_compute_azure_batch.png)
+
+- Using Azure Batch, you configure a VM pool, and upload the applications and data files.
+- Then the Batch service provisions the VMs, assign tasks to the VMs, runs the tasks, and monitors the progress.
+- Batch can automatically scale out the VMs in response to the workload.
+- Batch also provides job scheduling.
 
 #### Recommedation for Big compute running on Virtual Machines
+Microsoft HPC Pack is used to administer a cluster of VMs, and schedule and monitor HPC jobs.
+
+- We must provision and manage the VMs and network infrastructure.
+- This approach have existing HPC workloads and want to move some or all it to Azure.
+- You can move the entire HPC cluster to Azure, or you can keep your HPC cluster on-premises but use Azure for burst capacity.
 
 #### Recommedation for HPC Pack deployed to Azure
+The HPC cluster is created entirely within Azure.
+
+![](/images/hpc_pack_azure.png)
+
+- The head node provides management and job scheduling services to the cluster.
+- For tightly coupled tasks, use an RDMA network that provides very high bandwidth, low latency communication between VMs.
 
 #### Recommedation for Burst an HPC cluster to Azure
+An organization is running HPC Pack on-premises, and uses Azure VMs for burst capacity.
+
+![](/images/burst_hpc_cluster_azure.png)
+
+- The cluster head node is on-premises.
+- ExpressRoute or VPN Gateway connects the on-premises network to the Azure VNet.
