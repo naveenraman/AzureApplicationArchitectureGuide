@@ -10,7 +10,7 @@
     - best practices
     - a recommended deployment using relevant Azure services
     
-## N-tier
+## N-tier architecture style
 - Dependencies are managed by dividing the application into logical layers and physical tiers such as presentation, business logic, and data access.
 
   ![](/images/n_tier.png)
@@ -77,7 +77,7 @@
 - The data tier should consist of a replicated database. For Windows, we recommend SQL Server, using Always On availability groups for high availability. For Linux, choose a database that supports replication, such as Apache Cassandra.
 - Network security groups restrict access to each tier.(For example, the database tier only allows access from the business tier.)
 
-## Web-Queue-Worker
+## Web-Queue-Worker architecture style
 - The core components of this architecture are a web front end that serves client requests, and a worker that performs resource-intensive tasks, long-running workflows, or batch jobs. The web front end communicates with the worker through a message queue.
 
 ![](/images/web_queue_worker.png)
@@ -138,7 +138,7 @@
 - For storage, choose the storage technologies that best fit the needs of the application.
 - You might use multiple storage technologies (polyglot persistence).
 
-## Microservices
+## Microservices architecture style
 - A microservices architecture consists of a collection of small, autonomous services. Each service is self-contained and should implement a single business capability.
 
 ![](/images/microservices.png)
@@ -239,3 +239,48 @@
 - Services should have loose coupling and high functional cohesion. Functions that are likely to change together should be packaged and deployed together. If they reside in separate services, those services end up being tightly coupled, because a change in one service will require updating the other service. Overly chatty communication between two services may be a symptom of tight coupling and low cohesion.
 - Isolate failures. Use resiliency strategies to prevent failures within a service from cascading.
 
+## Event-driven architecture style
+- An event-driven architecture consists of event producers that generate a stream of events, and event consumers that listen for the events.
+
+![](/images/event_driven.png)
+
+- Events are delivered in near real time, so consumers can respond immediately to events as they occur.
+- Producers are decoupled from consumers — a producer doesn't know which consumers are listening.
+- Consumers are also decoupled from each other, and every consumer sees all of the events.
+- This differs from a Competing Consumers pattern, where consumers pull messages from a queue and a message is processed just once (assuming no errors).
+- An event driven architecture can use a pub/sub model or an event stream model.
+    - *Pub/sub*
+        - The messaging infrastructure keeps track of subscriptions.
+        - When an event is published, it sends the event to each subscriber.
+        - After an event is received, it cannot be replayed, and new subscribers do not see the event.
+    - *Event streaming*
+        - Events are written to a log.
+        - Events are strictly ordered (within a partition) and durable.
+        - Clients don't subscribe to the stream, instead a client can read from any part of the stream. 
+        - The client is responsible for advancing its position in the stream. That means a client can join at any time, and can replay events.
+- On the consumer side, there are some common variations:
+    - *Simple event processing*
+        - An event immediately triggers an action in the consumer. e.g. Use Azure Functions with a Service Bus trigger, so that a function executes whenever a message is published to a Service Bus topic.
+    - *Complex event processing*
+        - A consumer processes a series of events, looking for patterns in the event data, using a technology such as Azure Stream Analytics or Apache Storm. e.g. We could aggregate readings from an embedded device over a time window, and generate a notification if the moving average crosses a certain threshold.
+    - *Event stream processing*
+        - Use a data streaming platform, such as Azure IoT Hub or Apache Kafka, as a pipeline to ingest events and feed them to stream processors.
+        - The stream processors act to process or transform the stream.
+        - There may be multiple stream processors for different subsystems of the application. 
+        - This approach is a good fit for IoT workloads.
+#### When to use this architecture
+- Multiple subsystems must process the same events.
+- Real-time processing with minimum time lag.
+- Complex event processing, such as pattern matching or aggregation over time windows.
+- High volume and high velocity of data, such as IoT.
+
+#### Benefits
+- Producers and consumers are decoupled.
+- No point-to-point integrations. It's easy to add new consumers to the system.
+- Consumers can respond to events immediately as they arrive.
+- Highly scalable and distributed.
+- Subsystems have independent views of the event stream.
+
+#### Challenges
+- Guaranteed delivery. In some systems, especially in IoT scenarios, it's crucial to guarantee that events are delivered.
+- Processing events in order or exactly once. Each consumer type typically runs in multiple instances, for resiliency and scalability. This can create a challenge if the events must be processed in order (within a consumer type), or if the processing logic is not idempotent.
