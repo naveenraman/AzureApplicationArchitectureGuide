@@ -75,6 +75,7 @@
         - [Recommedation for Burst an HPC cluster to Azure]
 
 ## Architecture styles
+[Architecture styles]: #architecturestyles
 - A family of architectures that share certain characteristics.
 - These don't require that use of particular technologies, but some technologies are well-suited for certain architectures.
 - Each style includes the following details:
