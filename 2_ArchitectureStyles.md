@@ -413,6 +413,26 @@ These options are not mutually exclusive, and many solutions combine open source
     - The data ingestion workflow should scrub sensitive data early in the process, to avoid storing it in the data lake.
 
 #### IoT architecture
+Internet of Things (IoT) is a specialized subset of big data solutions.
+
+![Event-streaming components of the architecture](/images/Iot_architecture.png)
+
+- The cloud gateway ingests device events at the cloud boundary, using a reliable, low latency messaging system.
+- Devices might send events directly to the cloud gateway, or through a field gateway.
+- A field gateway is a specialized device or software, usually colocated with the devices, that receives events and forwards them to the cloud gateway.
+- The field gateway might also preprocess the raw device events, performing functions such as filtering, aggregation, or protocol transformation.
+- After ingestion, events go through one or more stream processors that can route the data (for example, to storage) or perform analytics and other processing.
+- Common type of processing:
+    - Writing event data to cold storage, for archiving or batch analytics.
+    - Hot path analytics, analyzing the event stream in (near) real time, to detect anomalies, recognize patterns over rolling time windows, or trigger alerts when a specific condition occurs in the stream.
+    - Handling special types of non-telemetry messages from devices, such as notifications and alarms.
+    - Machine learning.
+- These components of an IoT system do not directly related to event streaming:
+    - Device registry: Database of the provisioned devices, including the device IDs and usually device metadata, such as location.
+    
+    - Provisioning API: It is a common external interface for provisioning and registering new devices.
+    
+    - Command and control messages: Allow command and control messages to be sent to devices.
 
 ## Big compute architecture style
 
